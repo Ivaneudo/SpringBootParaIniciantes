@@ -1,5 +1,6 @@
 package com.cursoyt.api_spring_boot_iniciantes.service;
 
+import com.cursoyt.api_spring_boot_iniciantes.exceptions.RecursoNaoEncontradoException;
 import com.cursoyt.api_spring_boot_iniciantes.model.Produto;
 import com.cursoyt.api_spring_boot_iniciantes.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,10 @@ public class ProdutoService {
     return produtoRespository.findAll();
   }
 
-  public Optional<Produto> buscarPorId(Long id) {
-    return produtoRespository.findById(id);
+  public Produto buscarPorId(Long id) {
+    return produtoRespository.findById(id).orElseThrow(
+            () -> new RecursoNaoEncontradoException("Produto com ID " + id + "Não encontrado")
+    );
   }
 
   public Produto salvarProduto(Produto produto) {
@@ -29,6 +32,11 @@ public class ProdutoService {
   }
 
   public void deletarProduto(Long id) {
+
+    if (!produtoRespository.existsById(id)) {
+      throw new RecursoNaoEncontradoException("Produto com ID " + id + "Não encontrado");
+    }
+
     produtoRespository.deleteById(id);
   }
 
