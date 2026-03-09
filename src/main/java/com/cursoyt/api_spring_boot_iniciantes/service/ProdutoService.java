@@ -23,7 +23,7 @@ public class ProdutoService {
 
   public Produto buscarPorId(Long id) {
     return produtoRespository.findById(id).orElseThrow(
-            () -> new RecursoNaoEncontradoException("Produto com ID " + id + "Não encontrado")
+            () -> new RecursoNaoEncontradoException("Produto com ID " + id + " não encontrado")
     );
   }
 
