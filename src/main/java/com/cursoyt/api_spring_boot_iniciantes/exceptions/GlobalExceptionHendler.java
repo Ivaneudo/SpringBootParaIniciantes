@@ -24,7 +24,7 @@ public class GlobalExceptionHendler {
     return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
   }
 
-  @ExceptionHandler(RecursoNaoEncontradoException.class)
+  @ExceptionHandler(Exception.class)
   public ResponseEntity<Object> handleGenericException(Exception ex) {
     Map<String, Object> body = new LinkedHashMap<>();
     body.put("timestamp", LocalDateTime.now());
